@@ -1,0 +1,175 @@
+"$jason": {
+    "head": {
+        "title": "Template",
+        "styles": {
+            "bold": {
+                "font": "HelveticaNeue-CondensedBold",
+                "size": "15"
+            },
+            "normal": {
+                "font": "HelveticaNeue",
+                "size": "12"
+            },
+            "gray": {
+                "background": "#f5f5f5"
+            }
+        },
+        "actions": {
+            "$load": {
+                "type": "$network.request",
+                "options": {
+                    "url": "http://localhost:8083/activetripsjson"
+                },
+                "success": {
+                    "type": "$render"
+                },
+                "error": {
+                    "type": "$render"
+                    
+                }
+            },
+            "lynks_view": {
+                "type": "$network.request",
+                "options": {
+                    "url": "https://news.ycombinator.com/newest",
+                    "dataType": "html"
+                },
+                "success": {
+                    "type": "$render",
+                    "options": {
+                        "type": "html"
+                    }
+                }
+            },"lynksplus_view": {
+                "type": "$network.request",
+                "options": {
+                    "url": "https://news.ycombinator.com/newest",
+                    "dataType": "html"
+                },
+                "success": {
+                    "type": "$render",
+                    "options": {
+                        "type": "html"
+                    }
+                }
+            },
+            "lynkm_view": {
+                "type": "$network.request",
+                "options": {
+                    "url": "https://news.ycombinator.com/newest",
+                    "dataType": "html"
+                },
+                "success": {
+                    "type": "$render",
+                    "options": {
+                        "type": "html"
+                    }
+                }
+            },
+            "$foreground": {
+                "type": "$reload"
+            },
+            "$pull": {
+                "type": "$flush",
+                "success": {
+                    "type": "$reload"
+                }
+            }
+        },
+        
+        "templates": {
+            "body": {
+                "header": {
+                    "title": "LYNK RATES",
+                    
+                    "left": {
+                        "image": "http://localhost:8083/assets/images/AboutUs/ham_burger.png"
+                    },
+                    "style": {
+                        "background": "#333333","color": "#ffffff"
+                    }
+                    
+                    
+                },
+                "sections": [
+                             {
+                             "header": {
+                             "type":"tabs",
+                             "style": {
+                             "background": "#ffffff",
+                             "padding": "20",
+                             "tintColor":"#fbb000"
+                             },
+                             "items": [{
+                                       "text": "LYNK S",
+                                       "style": {
+                                       "height": "21"
+                                       },
+                                       "action": {
+                                       "trigger": "lynks_view"
+                                       }
+                                       }, {
+                                       "text": "LYNK S+",
+                                       "style": {
+                                       "height": "21"
+                                       },
+                                       "action": {
+                                       "trigger": "lynksplus_view"
+                                       }
+                                       },{
+                                       "text": "LYNK M",
+                                       "style": {
+                                       "height": "21"
+                                       },
+                                       "action": {
+                                       "trigger": "lynkm_view"
+                                       }
+                                       }]
+                             }
+                             
+                             ,
+                             
+                             "items": {
+                             "{{#each $jason}}": {
+                             "type": "vertical",
+                             "href": {
+                             "url": "{{url}}"
+                             },
+                             "components": [ {
+                                            "type": "label",
+                                            "text": "{{description}}",
+                                            "class": "bold"
+                                            },
+                                            {"type": "horizontal",
+                                            "components": [{
+                                                           "type": "label",
+                                                           "text": "{{title}}",
+                                                           "class": "bold"
+                                                           },{
+                                                           "type": "label",
+                                                           "text": "{{orderid}}",
+                                                           "class": "bold"
+                                                           }]}
+                                            
+                                            , {
+                                            "type": "label",
+                                            "text": "{{description}}",
+                                            "class": "bold"
+                                            },
+                                            {
+                                            "type": "label",
+                                            "text": "{{from}}",
+                                            "class": "normal"
+                                            }, {
+                                            "type": "label",
+                                            "text": "{{droppoint}}",
+                                            "class": "normal"
+                                            }]
+                             }
+                             }
+                             }
+                             ]
+            }
+        }
+    }
+}
